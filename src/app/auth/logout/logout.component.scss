@@ -1,0 +1,15 @@
+@import "src/@fuse/scss/fuse";
+
+#logout {
+    width: 100%;
+    background: url("/assets/images/backgrounds/dark-material-bg.jpg") no-repeat;
+    background-size: cover;
+
+    .logo{
+        top: 40%;
+    }
+
+    .example-margin{
+          color: #32e0c4;
+    }
+}

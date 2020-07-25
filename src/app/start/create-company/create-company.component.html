@@ -1,0 +1,17 @@
+<div id="company-form">
+    <div class="logo" fxHide.gt-xs>
+        <img src="assets/images/logos/logo--white.png">
+    </div>
+    <div class="title">Welcome to GateSeal Platform</div>
+    <div class="description">Let's get you started</div>
+    <form class="form" [formGroup]="companyForm">
+            <mat-form-field appearance="outline">
+                 <mat-label>Company name</mat-label>
+                 <input matInput formControlName="name">
+                 <mat-icon matSuffix class="secondary-text">account_balance</mat-icon> 
+            </mat-form-field>
+            <div class="button">
+                Create
+            </div>
+    </form>
+</div>

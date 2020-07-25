@@ -1,0 +1,144 @@
+<div id="clients" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div
+            class="header accent"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxLayout.gt-xs="row"
+            fxLayoutAlign.gt-xs="space-between center"
+        >
+            <!-- APP TITLE -->
+            <div
+                class="logo my-12 m-sm-0"
+                fxLayout="row"
+                fxLayoutAlign="start center"
+            >
+                <mat-icon
+                    class="logo-icon mr-16"
+                    [@animate]="{
+                        value: '*',
+                        params: { delay: '50ms', scale: '0.2' }
+                    }"
+                >
+                    shopping_basket
+                </mat-icon>
+
+                <span
+                    class="logo-text h1"
+                    [@animate]="{
+                        value: '*',
+                        params: { delay: '100ms', x: '-25px' }
+                    }"
+                >
+                    Clients
+                </span>
+            </div>
+            <!-- / APP TITLE -->
+
+            <!-- SEARCH -->
+            <div
+                class="search-input-wrapper mx-24 m-md-0"
+                fxFlex="1 0 auto"
+                fxLayout="row"
+                fxLayoutAlign="start center"
+            >
+                <label for="search" class="mr-8">
+                    <mat-icon class="search-icon">search</mat-icon>
+                </label>
+
+                <mat-form-field floatLabel="never" fxFlex="1 0 auto">
+                    <input
+                        id="search"
+                        matInput
+                        placeholder="Search for a client"
+                    />
+                </mat-form-field>
+            </div>
+            <!-- / SEARCH -->
+
+            <button
+                mat-raised-button
+                (click)="onClickAddClient()"
+                class="add-client-button fuse-white my-12 mt-sm-0"
+            >
+                <span>ADD NEW CLIENT</span>
+            </button>
+        </div>
+    </div>
+    <!--products-table-->
+    <div class="content-card">
+        <ngx-datatable
+            class="material"
+            [rows]="userClients"
+            [columnMode]="'flex'"
+            [headerHeight]="60"
+            [footerHeight]="100"
+            rowHeight="80"
+            [scrollbarV]="true"
+            [virtualization]="false"
+            [limit]="10"
+        >
+            <ngx-datatable-column name="Id" [flexGrow]="1">
+                <ng-template
+                    let-row="row"
+                    let-value="value"
+                    ngx-datatable-cell-template
+                >
+                    <span class="cell">{{ row.id }}</span>
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column [flexGrow]="1">
+                <ng-template
+                    let-row="row"
+                    let-value="value"
+                    ngx-datatable-cell-template
+                >
+                    <img
+                        class="client-image"
+                        [src]="row.basicInfo.logo"
+                        alt="logo"
+                    />
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Client_Name" [flexGrow]="2">
+                <ng-template
+                    let-row="row"
+                    let-value="value"
+                    ngx-datatable-cell-template
+                >
+                    <span class="cell">{{ row.basicInfo.name }}</span>
+                </ng-template></ngx-datatable-column
+            >
+
+            <ngx-datatable-column name="City" [flexGrow]="2">
+                <ng-template
+                    let-row="row"
+                    let-value="value"
+                    ngx-datatable-cell-template
+                >
+                    <span class="cell">{{ row.basicInfo.city }}</span>
+                </ng-template></ngx-datatable-column
+            >
+
+            <ngx-datatable-column name="Products" [flexGrow]="4">
+                <ng-template
+                    let-row="row"
+                    let-value="value"
+                    ngx-datatable-cell-template
+                >
+                    <span *ngFor="let p of row.products" class="cell">
+                        {{ p.name }}
+                    </span>
+                </ng-template>
+            </ngx-datatable-column>
+        </ngx-datatable>
+    </div>
+</div>

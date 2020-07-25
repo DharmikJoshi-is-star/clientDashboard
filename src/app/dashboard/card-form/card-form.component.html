@@ -1,0 +1,88 @@
+<mat-card>
+    <mat-card-title>
+        <mat-label class="label"
+            >Payement Card Details:</mat-label
+        ></mat-card-title
+    >
+
+    <mat-card-content>
+        <div fxLayout="row" fxLayoutAlign="space-evenly center"></div>
+        <div fxLayout="row" fxLayoutAlign="space-evenly center">
+            <form [formGroup]="cardForm">
+                <div class="w-100-p">
+                    <mat-form-field fxFlex="100">
+                        <mat-label>Client Name</mat-label>
+                        <input
+                            matInput
+                            name="name"
+                            formControlName="name"
+                            placeholder="Name"
+                            required
+                        />
+                        <mat-error>Client Name is required!</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="w-100-p">
+                    <mat-form-field fxFlex="100" appearnce="outline">
+                        <mat-label>Card Number</mat-label>
+                        <input
+                            matInput
+                            name="cardNumber"
+                            formControlName="cardNumber"
+                            placeholder="cardNumber"
+                            required
+                        />
+                        <mat-error>Card Number is required!</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="w-100-p">
+                    <mat-form-field fxFlex="49">
+                        <mat-label>expiration</mat-label>
+                        <input
+                            matInput
+                            placeholder="expiration"
+                            formControlName="expiration"
+                            required
+                        />
+                        <mat-error>Expiration (MM/YY)</mat-error>
+                    </mat-form-field>
+                    &nbsp;&nbsp;
+                    <mat-form-field fxFlex="49">
+                        <mat-label>Security Code</mat-label>
+                        <input
+                            matInput
+                            name="securityCode"
+                            formControlName="securityCode"
+                            placeholder="securityCode"
+                            type="password"
+                            required
+                        />
+                        <mat-error>Security Code is required!</mat-error>
+                    </mat-form-field>
+                </div>
+
+                <mat-card-actions>
+                    <div
+                        class="w-100-p"
+                        fxLayout="row"
+                        fxLayoutAlign="center center"
+                    >
+                        <button
+                            color="accent"
+                            fxFlex="49"
+                            mat-raised-button
+                            type="button"
+                            [disabled]="!cardForm.valid"
+                            (click)="onCardInfoSubmit()"
+                        >
+                            <span class="paybuttontxt">
+                                <span>Pay</span>
+                                ${{ amount }}</span
+                            >
+                        </button>
+                    </div>
+                </mat-card-actions>
+            </form>
+        </div>
+    </mat-card-content>
+</mat-card>

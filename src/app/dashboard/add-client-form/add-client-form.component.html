@@ -1,0 +1,567 @@
+<div id="client" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div
+            class="header accent"
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+        >
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <button
+                    mat-icon-button
+                    class="mr-0 mr-sm-16"
+                    [routerLink]="'/dashboard'"
+                >
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div
+                    class="client-image mr-8 mr-sm-16"
+                    [@animate]="{
+                        value: '*',
+                        params: { delay: '50ms', scale: '0.2' }
+                    }"
+                >
+                    <img
+                        class="media"
+                        [src]="
+                            'assets/images/ecommerce/product-image-placeholder.png'
+                        "
+                        *ngIf="logoUrl == ''"
+                    />
+                    <img class="media" [src]="logoUrl" *ngIf="logoUrl != ''" />
+                </div>
+
+                <div
+                    fxLayout="column"
+                    fxLayoutAlign="start start"
+                    [@animate]="{
+                        value: '*',
+                        params: { delay: '100ms', x: '-25px' }
+                    }"
+                >
+                    <div class="h2">
+                        New Client
+                    </div>
+                    <div class="subtitle secondary-text">
+                        <span>Client Detail</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <!-- CONTENT -->
+            <div class="content">
+                <!--[formGroup]="productForm"-->
+
+                <mat-tab-group [(selectedIndex)]="selectTab">
+                    <mat-tab
+                        label="Basic Info"
+                        disabled="{{ selectTabGroup[0] }}"
+                    >
+                        <div class="tab-content p-24" fusePerfectScrollbar>
+                            <form [formGroup]="basicInfoForm">
+                                <div class="w-100-p">
+                                    <mat-form-field
+                                        fxFlex="100"
+                                        appearance="outline"
+                                    >
+                                        <mat-label>Client Name</mat-label>
+                                        <input
+                                            matInput
+                                            name="name"
+                                            formControlName="name"
+                                            placeholder="Client Name"
+                                            required
+                                        />
+                                        <mat-error
+                                            >Client Name is required!</mat-error
+                                        >
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="w-100-p">
+                                    <mat-form-field
+                                        fxFlex="100"
+                                        appearance="outline"
+                                    >
+                                        <mat-label>Address</mat-label>
+                                        <textarea
+                                            matInput
+                                            formControlName="address"
+                                            placeholder="Address"
+                                            required
+                                            row="5"
+                                        >
+                                        </textarea>
+                                        <mat-error
+                                            >Address is required!</mat-error
+                                        >
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="w-100-p">
+                                    <mat-form-field
+                                        fxFlex="49"
+                                        appearance="outline"
+                                    >
+                                        <mat-label>City</mat-label>
+                                        <input
+                                            matInput
+                                            placeholder="City"
+                                            formControlName="city"
+                                            required
+                                        />
+                                        <mat-error>City is required!</mat-error>
+                                    </mat-form-field>
+
+                                    <mat-form-field
+                                        fxFlex="49"
+                                        appearance="outline"
+                                    >
+                                        <mat-label>State</mat-label>
+                                        <input
+                                            matInput
+                                            name="state"
+                                            formControlName="state"
+                                            placeholder="State"
+                                            required
+                                        />
+                                        <mat-error
+                                            >State is required!</mat-error
+                                        >
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="w-100-p center">
+                                    <mat-label>Client Logo: </mat-label>
+
+                                    <button
+                                        mat-raised-button
+                                        color="accent"
+                                        (click)="onUploadBtnClick()"
+                                    >
+                                        <mat-icon>publish</mat-icon>
+                                        Upload Logo
+                                    </button>
+                                    <span *ngIf="logoUrl != ''">
+                                        {{ logoUrl }}
+                                        <input
+                                            type="text"
+                                            id="logo"
+                                            name="logo"
+                                            formControlName="logo"
+                                            [(ngModel)]="logoUrl"
+                                            style="display: none;"
+                                        />
+                                    </span>
+
+                                    <br />
+
+                                    <input
+                                        type="file"
+                                        id="fileUpload"
+                                        name="fileUpload"
+                                        accept="image/*"
+                                        style="display: none;"
+                                    />
+                                </div>
+
+                                <div
+                                    class="w-100-p"
+                                    fxLayout="row"
+                                    fxLayoutAlign="center center"
+                                >
+                                    <button
+                                        color="primary"
+                                        mat-raised-button
+                                        (click)="previousStep()"
+                                        type="button"
+                                        *ngIf="selectTab"
+                                    >
+                                        Previous
+                                    </button>
+                                    &nbsp;
+                                    <button
+                                        *ngIf="basicInfoForm"
+                                        color="primary"
+                                        mat-raised-button
+                                        (click)="submitBasicInfo()"
+                                        type="button"
+                                        [disabled]="!basicInfoForm.valid"
+                                    >
+                                        Next
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab
+                        label="Products"
+                        disabled="{{ selectTabGroup[1] }}"
+                    >
+                        <div class="tab-content p-24" fusePerfectScrollbar>
+                            <mat-label>Choose Products</mat-label>
+
+                            <div *ngFor="let prod of checkProducts">
+                                <div class="w-100-p">
+                                    <mat-checkbox
+                                        fxFlex="20"
+                                        [(ngModel)]="prod.checked"
+                                        >{{ prod.product.name }}</mat-checkbox
+                                    >
+
+                                    <mat-form-field
+                                        fxFlex="49"
+                                        appearance="outline"
+                                    >
+                                        <mat-label>Choose an package</mat-label>
+                                        <mat-select
+                                            [disabled]="!prod.checked"
+                                            [(value)]="prod.product.package"
+                                        >
+                                            <div
+                                                *ngFor="let package of packages"
+                                            >
+                                                <mat-option [value]="package">
+                                                    {{ package }}
+                                                    ></mat-option
+                                                >
+                                            </div>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div
+                                class="w-100-p"
+                                fxLayout="row"
+                                fxLayoutAlign="center center"
+                            >
+                                <button
+                                    color="primary"
+                                    mat-raised-button
+                                    (click)="previousStep()"
+                                    type="button"
+                                    *ngIf="selectTab"
+                                >
+                                    Previous
+                                </button>
+                                &nbsp;
+                                <button
+                                    color="primary"
+                                    mat-raised-button
+                                    (click)="submitProductForm()"
+                                    type="button"
+                                    *ngIf="selectTab <= 2"
+                                >
+                                    Next
+                                </button>
+                                <div>{{ product_form_err }}</div>
+                            </div>
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab
+                        label="Custom billing"
+                        disabled="{{ selectTabGroup[2] }}"
+                    >
+                        <div class="tab-content p-24" fusePerfectScrollbar>
+                            <div class="w-100-p">
+                                <div *ngIf="customBilling">
+                                    <div
+                                        *ngFor="
+                                            let pb of customBilling.productbills
+                                        "
+                                    >
+                                        <mat-label class="label">
+                                            {{ pb.product.name }}
+                                        </mat-label>
+                                        <mat-label class="label">
+                                            {{ pb.product.package }}
+                                        </mat-label>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Discount</mat-label>
+                                            <input
+                                                type="number"
+                                                matInput
+                                                minlength="1"
+                                                maxlength="3"
+                                                placeholder="50"
+                                                [(ngModel)]="pb.discount"
+                                            />
+                                            <mat-icon matSuffix>%</mat-icon>
+                                            <mat-error
+                                                >Client Name is
+                                                required!</mat-error
+                                            >
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="w-100-p">
+                                <mat-label class="label"
+                                    >Billing Cycle:</mat-label
+                                >
+
+                                <mat-radio-group
+                                    [(ngModel)]="customBilling.billingCycle"
+                                    *ngIf="customBilling"
+                                >
+                                    <mat-radio-button
+                                        *ngFor="let cycle of billing_cycles"
+                                        [value]="cycle"
+                                        ><mat-label class="label radio">
+                                            {{ cycle }}
+                                        </mat-label>
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+
+                            <div class="w-100-p">
+                                <div
+                                    fxLayout="row"
+                                    fxLayoutAlign="space-around center"
+                                >
+                                    <div
+                                        fxLayout="row"
+                                        fxLayoutAlign="start center"
+                                    >
+                                        <app-card
+                                            [cardNumber]="cardNumber"
+                                            [cardName]="cardName"
+                                            [cardExpiry]="cardExpiry"
+                                        ></app-card>
+                                    </div>
+                                    <div
+                                        fxLayout="row"
+                                        fxLayoutAlign="start center"
+                                    >
+                                        <app-card-form
+                                            (cardNumberEmitter)="
+                                                onCardNumberEmitter($event)
+                                            "
+                                            (cardNameEmitter)="
+                                                onCardNameEmitter($event)
+                                            "
+                                            (cardExpiryEmitter)="
+                                                onCardExpiryEmitter($event)
+                                            "
+                                            (cardInfoSubmitEmitter)="
+                                                onCardInfoSubmitEmitter($event)
+                                            "
+                                            [amount]="amount"
+                                        ></app-card-form>
+                                    </div>
+                                </div>
+                            </div>
+                            <br /><br />
+                            <div
+                                class="w-100-p"
+                                fxLayout="row"
+                                fxLayoutAlign="center center"
+                            >
+                                <button
+                                    color="primary"
+                                    mat-raised-button
+                                    (click)="previousStep()"
+                                    type="button"
+                                    *ngIf="selectTab"
+                                >
+                                    Previous
+                                </button>
+                                &nbsp;
+                                <button
+                                    color="primary"
+                                    mat-raised-button
+                                    (click)="submitCustomBilling()"
+                                    type="button"
+                                    *ngIf="selectTab <= 2"
+                                    [disabled]="!cardSubmit"
+                                >
+                                    Next
+                                </button>
+                            </div>
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab
+                        label="Admin User"
+                        disabled="{{ selectTabGroup[3] }}"
+                    >
+                        <div class="tab-content p-24" fusePerfectScrollbar>
+                            <form [formGroup]="adminUserForm">
+                                <div class="w-100-p">
+                                    <mat-form-field
+                                        fxFlex="100"
+                                        appearance="outline"
+                                    >
+                                        <mat-label>Name</mat-label>
+                                        <input
+                                            matInput
+                                            name="name"
+                                            formControlName="name"
+                                            placeholder="Admin Name"
+                                            required
+                                        />
+                                        <mat-error>
+                                            <span
+                                                *ngIf="
+                                                    adminUserForm.controls.name
+                                                        .errors != null
+                                                "
+                                            >
+                                                <span
+                                                    *ngIf="
+                                                        adminUserForm.controls
+                                                            .name.errors.pattern
+                                                    "
+                                                >
+                                                    Name can be only a-z and A-Z
+                                                </span>
+
+                                                <span
+                                                    *ngIf="
+                                                        adminUserForm.controls
+                                                            .name.errors
+                                                            .maxlength ||
+                                                        adminUserForm.controls
+                                                            .name.errors
+                                                            .minlength
+                                                    "
+                                                >
+                                                    length of name must in
+                                                    between 3-25
+                                                </span>
+                                            </span>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-100-p">
+                                    <mat-form-field
+                                        fxFlex="100"
+                                        appearance="outline"
+                                    >
+                                        <mat-label>Userame</mat-label>
+                                        <input
+                                            matInput
+                                            name="username"
+                                            formControlName="username"
+                                            placeholder="Username"
+                                            required
+                                        />
+                                        <mat-error
+                                            >Username is required!</mat-error
+                                        >
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-100-p">
+                                    <mat-form-field
+                                        fxFlex="100"
+                                        appearance="outline"
+                                    >
+                                        <mat-label>Password</mat-label>
+                                        <input
+                                            matInput
+                                            name="password"
+                                            formControlName="password"
+                                            type="password"
+                                            placeholder="Password"
+                                            required
+                                        />
+                                        <mat-error
+                                            >Password is required!</mat-error
+                                        >
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-100-p">
+                                    <mat-form-field
+                                        fxFlex="100"
+                                        appearance="outline"
+                                    >
+                                        <mat-label>Mobile No </mat-label>
+
+                                        <input
+                                            matInput
+                                            name="mobile"
+                                            formControlName="mobile"
+                                            type="tel"
+                                            placeholder="555-555-1234"
+                                            required
+                                        />
+                                        <mat-error
+                                            >Mobile Number is
+                                            required!</mat-error
+                                        >
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-100-p">
+                                    <mat-form-field
+                                        fxFlex="100"
+                                        appearance="outline"
+                                    >
+                                        <mat-label>Email </mat-label>
+                                        <input
+                                            matInput
+                                            name="email"
+                                            type="email"
+                                            formControlName="email"
+                                            placeholder="Email address"
+                                            required
+                                        />
+                                        <mat-error
+                                            >Email address is
+                                            required!</mat-error
+                                        >
+                                    </mat-form-field>
+                                </div>
+
+                                <br />
+                                <div
+                                    class="w-100-p"
+                                    fxLayout="row"
+                                    fxLayoutAlign="center center"
+                                >
+                                    <button
+                                        color="primary"
+                                        mat-raised-button
+                                        (click)="previousStep()"
+                                        type="button"
+                                        *ngIf="selectTab"
+                                    >
+                                        Previous
+                                    </button>
+                                    &nbsp;
+                                    <button
+                                        color="primary"
+                                        mat-raised-button
+                                        [disabled]="!adminUserForm.valid"
+                                        (click)="onadminSubmit()"
+                                        type="button"
+                                        *ngIf="selectTab > 2"
+                                    >
+                                        Finish
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+            <!-- / CONTENT -->
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+</div>

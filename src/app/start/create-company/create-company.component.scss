@@ -1,0 +1,57 @@
+@import "src/@fuse/scss/fuse";
+
+
+#company-form{
+    padding: 128px 48px 48px 48px;
+
+    @include media-breakpoint('xs') {
+        text-align: center;
+        padding: 24px;
+    }
+
+    .logo {
+        width: 128px;
+        margin: 32px auto;
+    }
+
+    .title {
+        font-size: 21px;
+    }
+
+    .description {
+        padding-top: 8px;
+        text-align: center;
+        margin-top: 20px;
+        font-size: 18px;
+    }
+
+    .button{
+        background-color: #01CBC6;
+        width: 80%;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: medium;
+        text-align: center;
+        font-weight: bold;
+        margin: 20px;
+        color: white;
+    }
+
+    form {
+        width: 100%;
+        padding-top: 32px;
+
+        mat-form-field {
+            width: 100%;
+
+            @include media-breakpoint('xs') {
+                width: 80%;
+            }
+        }
+
+        mat-checkbox {
+            margin: 0;
+        }
+
+    }
+}

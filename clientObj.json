@@ -1,0 +1,33 @@
+{
+    "basicInfo": {
+        "name": "Dharmik Joshi",
+        "address": "135/A1,jawahar nagar ,goregaon west",
+        "city": "Mumbai",
+        "state": "MAHARASHTRA",
+        "logo": "lac-blanc-chamonix-france_l.jpg"
+    },
+    "products": [
+        { "id": 1, "name": "CRM", "package": "Package3" },
+        { "id": 2, "name": "SCM", "package": "Package3" }
+    ],
+    "customBill": {
+        "billingCycle": "One TIme",
+        "productbills": [
+            {
+                "product": { "id": 1, "name": "CRM", "package": "Package3" },
+                "discount": 45
+            },
+            {
+                "product": { "id": 2, "name": "SCM", "package": "Package3" },
+                "discount": 45
+            }
+        ]
+    },
+    "adminUser": {
+        "email": "dharmikj75@gmail.com",
+        "mobile": "9096167416",
+        "name": "Dharmik Joshi",
+        "password": "passwordispassword",
+        "username": "Dharmik"
+    }
+}
